@@ -80,9 +80,5 @@ import type { TextChannel } from "discord.js";
         return;
     });
 
-    client.on('guildMemberRemove', async member => {    
-
-    });
-
     logger.info("App is now online!");
 }();

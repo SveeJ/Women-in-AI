@@ -81,7 +81,5 @@ const constants_1 = require("./constants");
         }
         return;
     });
-    client.on('guildMemberRemove', async (member) => {
-    });
     logger.info("App is now online!");
 }();
