@@ -21,10 +21,10 @@ import type { TextChannel } from "discord.js";
 
     let invite_cache = await guild.fetchInvites();
 
-    function createEmbed(description?: string, color: ColorResolvable = "#228B22", footerSuffix = `Watching ${guild!.memberCount} Players!`){
+    function createEmbed(description?: string, color: ColorResolvable = "#228B22", footerSuffix = `Watching ${guild!.memberCount} Members!`){
         const embed = new MessageEmbed() 
             .setColor(color)
-            .setFooter(`© Equinox | ${footerSuffix}`, Constants.BRANDING_URL);
+            .setFooter(`© AI Hackathon | ${footerSuffix}`, Constants.BRANDING_URL);
 
         if(description) embed.setDescription(description);
         

@@ -36,10 +36,10 @@ const constants_1 = require("./constants");
         return process.exit(1);
     });
     let invite_cache = await guild.fetchInvites();
-    function createEmbed(description, color = "#228B22", footerSuffix = `Watching ${guild.memberCount} Players!`) {
+    function createEmbed(description, color = "#228B22", footerSuffix = `Watching ${guild.memberCount} Members!`) {
         const embed = new discord_js_1.MessageEmbed()
             .setColor(color)
-            .setFooter(`© Equinox | ${footerSuffix}`, constants_1.Constants.BRANDING_URL);
+            .setFooter(`© AI Hackathon | ${footerSuffix}`, constants_1.Constants.BRANDING_URL);
         if (description)
             embed.setDescription(description);
         return embed;
