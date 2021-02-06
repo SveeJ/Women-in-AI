@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.defaultGuild = void 0;
 const discord_js_1 = require("discord.js");
-require("node-fetch");
 const logger_1 = __importDefault(require("../logger"));
 const { GUILD, TOKEN } = process.env;
 const logger = new logger_1.default("Bot Manager");
