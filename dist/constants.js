@@ -19,4 +19,5 @@ var Constants;
     Constants.BASE_URL = 'https://discord.gg/';
     Constants.TEEN = '807581141858910228';
     Constants.MENTOR = '807581044777156608';
+    Constants.INVITE_LOGS = '807592430638596116';
 })(Constants = exports.Constants || (exports.Constants = {}));
