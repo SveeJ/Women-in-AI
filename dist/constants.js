@@ -14,4 +14,9 @@ if (!GUILD) {
 var Constants;
 (function (Constants) {
     Constants.BRANDING_URL = 'https://cdn.discordapp.com/attachments/804629278301093898/807564996442587156/fulllogos-405x252.png';
+    Constants.INVITE_GEN = '807569301203583028';
+    Constants.WELCOME_CHANNEL = '807567353670926356';
+    Constants.BASE_URL = 'https://discord.gg/';
+    Constants.TEEN = '807581141858910228';
+    Constants.MENTOR = '807581044777156608';
 })(Constants = exports.Constants || (exports.Constants = {}));

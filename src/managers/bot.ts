@@ -1,5 +1,4 @@
 import { Client, Guild } from "discord.js";
-import fetch from "node-fetch";
 import Logger from "../logger";
 
 const { GUILD, TOKEN } = process.env;

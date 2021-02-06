@@ -10,4 +10,9 @@ if(!GUILD){
 
 export namespace Constants {
     export const BRANDING_URL = 'https://cdn.discordapp.com/attachments/804629278301093898/807564996442587156/fulllogos-405x252.png';
+    export const INVITE_GEN = '807569301203583028';
+    export const WELCOME_CHANNEL = '807567353670926356';
+    export const BASE_URL = 'https://discord.gg/';
+    export const TEEN = '807581141858910228';
+    export const MENTOR = '807581044777156608';
 }

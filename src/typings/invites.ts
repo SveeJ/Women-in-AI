@@ -1,4 +1,4 @@
 export interface Invites {
-    invite: string;
+    code: string;
     type: string;
 }
