@@ -15,4 +15,5 @@ export namespace Constants {
     export const BASE_URL = 'https://discord.gg/';
     export const TEEN = '807581141858910228';
     export const MENTOR = '807581044777156608';
+    export const INVITE_LOGS = '807592430638596116';
 }

@@ -10,6 +10,7 @@ import bot, { defaultGuild } from "./managers/bot";
 import database from "./managers/database";
 import { Constants } from "./constants";
 import type { Invites } from "./typings/invites";
+import type { TextChannel } from "discord.js";
 
 !async function(){
 
@@ -43,6 +44,9 @@ import type { Invites } from "./typings/invites";
 
             const type = msg_arr[1];
             const invite = await welcome_channel.createInvite({ "maxAge": 0, "maxUses": 1 });
+
+            invite_cache = await guild.fetchInvites();
+
             const dbInvite: Invites = {
                 "code": invite.code,
                 "type": type,
@@ -56,30 +60,20 @@ import type { Invites } from "./typings/invites";
 
     client.on('guildMemberAdd', async member => {
 
-        let invite;
-
         const cache = await guild.fetchInvites();
 
-        for(let i in cache) {
+        for(const [i, value] of invite_cache) {
 
-            const inv = cache.get(i);
-            if(!inv) continue;
-
-            const inv2 = invite_cache.get(inv.code);
-            if(inv2) {
-                if((inv.uses ?? 0) > (inv2.uses ?? 0)) {
-                    invite = inv;
-                    invite_cache = await guild.fetchInvites();
-                }   
-            }
-        }
-
-        if(invite) {
-            const dbInv = await db.invites.findOne({ "code": invite.code });
-            if(dbInv) {
-                const role_id = dbInv.type === 'mentor' ? Constants.MENTOR : Constants.TEEN;
-                await member.roles.add(role_id).catch(() => null);
-                await db.invites.deleteOne({ "code": invite.code });
+            const inv = cache.get(i)
+            if(!inv) {
+                const dbInv = await db.invites.findOne({ "code": i });
+                if(dbInv) {
+                    const role_id = dbInv.type === 'mentor' ? Constants.MENTOR : Constants.TEEN;
+                    await member.roles.add(role_id).catch(() => null);
+                    invite_cache = cache;
+                    (guild.channels.cache.get(Constants.INVITE_LOGS) as TextChannel).send(createEmbed(`Invite ${Constants.BASE_URL}${value.code} has been used.`, "RED").setTitle("Invite Used").addField('Member who Joined', `${member}`));
+                    return await db.invites.deleteOne({ "code": i });
+                }
             }
         }
 

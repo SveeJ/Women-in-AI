@@ -55,6 +55,7 @@ const constants_1 = require("./constants");
                 return logger.error("WELCOME CHANNEL NOT FOUND.");
             const type = msg_arr[1];
             const invite = await welcome_channel.createInvite({ "maxAge": 0, "maxUses": 1 });
+            invite_cache = await guild.fetchInvites();
             const dbInvite = {
                 "code": invite.code,
                 "type": type,
@@ -64,26 +65,18 @@ const constants_1 = require("./constants");
         }
     });
     client.on('guildMemberAdd', async (member) => {
-        let invite;
         const cache = await guild.fetchInvites();
-        for (let i in cache) {
+        for (const [i, value] of invite_cache) {
             const inv = cache.get(i);
-            if (!inv)
-                continue;
-            const inv2 = invite_cache.get(inv.code);
-            if (inv2) {
-                if ((inv.uses ?? 0) > (inv2.uses ?? 0)) {
-                    invite = inv;
-                    invite_cache = await guild.fetchInvites();
+            if (!inv) {
+                const dbInv = await db.invites.findOne({ "code": i });
+                if (dbInv) {
+                    const role_id = dbInv.type === 'mentor' ? constants_1.Constants.MENTOR : constants_1.Constants.TEEN;
+                    await member.roles.add(role_id).catch(() => null);
+                    invite_cache = cache;
+                    guild.channels.cache.get(constants_1.Constants.INVITE_LOGS).send(createEmbed(`Invite ${constants_1.Constants.BASE_URL}${value.code} has been used.`, "RED").setTitle("Invite Used").addField('Member who Joined', `${member}`));
+                    return await db.invites.deleteOne({ "code": i });
                 }
-            }
-        }
-        if (invite) {
-            const dbInv = await db.invites.findOne({ "code": invite.code });
-            if (dbInv) {
-                const role_id = dbInv.type === 'mentor' ? constants_1.Constants.MENTOR : constants_1.Constants.TEEN;
-                await member.roles.add(role_id).catch(() => null);
-                await db.invites.deleteOne({ "code": invite.code });
             }
         }
         return;
