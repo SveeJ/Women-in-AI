@@ -1,5 +1,5 @@
 # #WAI
-#WAI bot is a real time automations solution built on commission for the Women in AI (#WAI) community that works on the discord.js API and deals
+#WAI bot is a real time automations solution built on commission for the Women in AI (#WAI) company that works on the discord.js API and deals
 with server side conference security, security key generation and valid member authentication. This was essential for maintaining the integrity of these
 widely coveted global conferences conducted in online mode due to COVID-19. 
 
